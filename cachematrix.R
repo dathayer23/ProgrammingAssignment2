@@ -52,3 +52,35 @@ cacheSolve <- function(x, ...) {
     i   
 }
 
+compare <- function(x = matrix(), y = matrix()) {
+       # get dimentsions of both parameters
+       xs <- dim(x)
+       ys <- dim(y)
+       same <- xs != ys
+       
+       # if dimensions are the same then compare element values
+       if (sum(same) == 0) {
+         f <- x != y
+         dim(f) <- prod(xs)
+         sum(f) == 0
+       }
+       else {
+         False
+       }
+    }
+
+message("run test code")
+
+# test code
+v <- matrix(c(1,1,1,0.5), 2,2)
+cm <- makeCacheMatrix(v)
+cacheSolve(cm)
+identity <- cm$get() %*% cacheSolve(cm)
+# identity matrix
+id  <- matrix(c(1,0,0,1),2,2)
+## ident should be equal to identity
+if (compare(identity,id)) { message("inverse was returned by cacheSolve") }
+
+
+
+
